@@ -1,13 +1,27 @@
 @font-face {
-  font-family: "Poppins";
+  font-family: "Cabinet Grotesk-Regular";
+  src: url("../vendor/fonts/fonts/CabinetGrotesk-Medium.woff2") format("woff2"),
+    url("../vendor/fonts/fonts/CabinetGrotesk-Regular.woff") format("woff"),
+    url("../vendor/fonts/fonts/CabinetGrotesk-Regular.ttf") format("truetype");
+  font-weight: 500;
+  font-display: swap;
   font-style: normal;
-  /* Replace with the appropriate font weight */
-  font-weight: 400;
-  /* Replace with the correct file path */
-  src: url(./fonts/Poppins-Regular.ttf);
 }
 @font-face {
-  font-family: "Poppins";
-  font-weight: 500;
-  src: url(./fonts/Poppins-Medium.ttf);
+  font-family: "Cabinet Grotesk-Medium";
+  src: url("../vendor/fonts/fonts/CabinetGrotesk-Medium.woff2") format("woff2"),
+    url("../vendor/fonts/fonts/CabinetGrotesk-Medium.woff") format("woff"),
+    url("../vendor/fonts/fonts/CabinetGrotesk-Medium.ttf") format("truetype");
+  font-weight: 700;
+  font-display: swap;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Cabinet Grotesk-Bold";
+  src: url("../vendor/fonts/fonts/CabinetGrotesk-Bold.woff2") format("woff2"),
+    url("../vendor/fonts/fonts/CabinetGrotesk-Bold.woff") format("woff"),
+    url("../vendor/fonts/fonts/CabinetGrotesk-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-display: swap;
+  font-style: normal;
 }
