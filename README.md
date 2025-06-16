@@ -47,6 +47,10 @@ src/
 
 The application analyzes current weather conditions and automatically filters clothing items suitable for the weather.
 
+### Deployment
+
+This application is deployed at this link: ['https://huntermelrose831.github.io/se_project_react/']
+
 ### Add New Clothing Items
 
 Users can add new clothing items to their wardrobe through an intuitive modal form interface.
