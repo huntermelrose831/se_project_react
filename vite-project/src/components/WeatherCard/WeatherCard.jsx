@@ -1,11 +1,26 @@
 import "./WeatherCard.css";
-import sunny from "../../assets/sunnyweatherstrip.png";
-function WeatherCard() {
+import { weatherOptions } from "../../utils/constants.js";
+function WeatherCard({ weatherData }) {
+  const filteredOptions = weatherOptions.filter((option) => {
+    return (
+      option.day === weatherData.isDay &&
+      option.condition === weatherData.condition
+    );
+  });
+
+  const weatherOptionUrl = filteredOptions[0]?.url;
+  const weatherOptionCondition =
+    filteredOptions[0]?.condition || "weather condition";
+  console.log(weatherOptionUrl);
   return (
     <>
       <section className="weather-card">
-        <p className="weather-card__temp">75 &deg; F</p>
-        <img src={sunny} alt="Sunny weather" className="weather-card__image" />
+        <p className="weather-card__temp">{weatherData.temp} &deg; F</p>
+        <img
+          src={weatherOptionUrl}
+          alt={weatherOptionCondition}
+          className="weather-card__image"
+        />
       </section>
     </>
   );

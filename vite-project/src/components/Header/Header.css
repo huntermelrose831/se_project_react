@@ -18,7 +18,15 @@
   color: #000000;
 }
 .header__add-clothes-btn {
-  margin-left: auto;
+  margin: 0 20px 0 auto;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  display: flex;
+
+  font-size: 20px;
+  line-height: 24px;
+  font-weight: 700;
 }
 .header__user-container {
   display: flex;
@@ -29,5 +37,8 @@
   width: 40px;
 }
 .header__username {
-  margin: 0;
+  margin: 0 12px 0 0;
+  font-size: 20px;
+  line-height: 24px;
+  font-weight: 700;
 }
