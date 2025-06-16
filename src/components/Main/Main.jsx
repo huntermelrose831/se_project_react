@@ -2,7 +2,7 @@ import WeatherCard from "../WeatherCard/WeatherCard.jsx";
 import { defaultClothingItems } from "../../utils/constants.js";
 import { filterTemp } from "../../utils/WeatherAPI.js";
 import ItemCard from "../ItemCard/ItemCard.jsx";
-import "../Main/Main.css";
+import "./Main.css";
 
 function Main({ weatherData, handleCardClick }) {
   console.log(filterTemp);
