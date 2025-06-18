@@ -11,7 +11,6 @@ function WeatherCard({ weatherData }) {
   const weatherOptionUrl = filteredOptions[0]?.url;
   const weatherOptionCondition =
     filteredOptions[0]?.condition || "weather condition";
-  console.log(weatherOptionUrl);
   return (
     <>
       <section className="weather-card">

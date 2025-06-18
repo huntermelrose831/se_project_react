@@ -5,7 +5,6 @@ import ItemCard from "../ItemCard/ItemCard.jsx";
 import "./Main.css";
 
 function Main({ weatherData, handleCardClick }) {
-  console.log(filterTemp);
   return (
     <main>
       <WeatherCard weatherData={weatherData} />
