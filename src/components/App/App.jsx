@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Header from "../Header/Header.jsx";
+import { v4 } from "uuid";
 import { coordinates, APIkey } from "../../utils/constants.js";
 import Main from "../Main/Main.jsx";
 import "./App.css";
@@ -8,7 +9,9 @@ import Footer from "../Footer/Footer.jsx";
 import CurrentTemperatureUnitContext from "../../context/CurrentTemperatureUnit.jsx";
 import { getWeather, filterWeatherData } from "../../utils/WeatherAPI.js";
 import AddItemModal from "../AddItemModal/AddItemModal.jsx";
+import { defaultClothingItems } from "../../utils/constants.js";
 function App() {
+  const [clothingItems, setClothingItems] = useState(defaultClothingItems);
   const [weatherData, setWeatherData] = useState({});
   const [activeModal, setActiveModal] = useState("");
   const [selectedCard, setSelectedCard] = useState({});
@@ -28,6 +31,13 @@ function App() {
   const closeActiveModal = () => {
     setActiveModal("");
   };
+  const handleAddItemModalSubmit = ({ name, imageUrl, weather }) => {
+    setClothingItems([
+      { name, link: imageUrl, weather, _id: v4() },
+      ...clothingItems,
+    ]);
+    closeActiveModal();
+  };
   useEffect(() => {
     getWeather(coordinates, APIkey)
       .then((data) => {
@@ -44,12 +54,17 @@ function App() {
       <div className="page">
         <div className="page__content">
           <Header handleAddClick={handleAddClick} weatherData={weatherData} />
-          <Main weatherData={weatherData} handleCardClick={handleCardClick} />
+          <Main
+            weatherData={weatherData}
+            handleCardClick={handleCardClick}
+            clothingItems={clothingItems}
+          />
           <Footer />
         </div>
         <AddItemModal
           isOpen={activeModal === "add-garment"}
           onClose={closeActiveModal}
+          onAddItemModalSubmit={handleAddItemModalSubmit}
         />
         <ItemModal
           activeModal={activeModal}
