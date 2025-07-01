@@ -1,5 +1,33 @@
 .clothes-section {
-  max-width: 1200px;
-  right: 10px;
+  margin: 0;
+  width: 1015px;
+  padding: 0;
+}
+
+.clothes-section__items {
   display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 0;
+}
+.clothes-section__header {
+  gap: 20px;
+  display: flex;
+  align-items: center;
+}
+.clothes-section__title {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1;
+  color: #000000;
+}
+.clothes-section__add-button {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  opacity: 0.6;
+  font-weight: 700;
+
+  line-height: 1;
+  font-size: 20px;
 }
