@@ -12,6 +12,7 @@ import { getWeather, filterWeatherData } from "../../utils/WeatherAPI.js";
 import AddItemModal from "../AddItemModal/AddItemModal.jsx";
 import { defaultClothingItems } from "../../utils/constants.js";
 import Profile from "../Profile/Profile.jsx";
+import { GetItems } from "../../utils/api.js";
 function App() {
   const [clothingItems, setClothingItems] = useState(defaultClothingItems);
   const [weatherData, setWeatherData] = useState({});
@@ -48,6 +49,13 @@ function App() {
       })
       .catch(console.error);
   }, []);
+  useEffect(() => {
+    GetItems()
+      .then((data) => {
+        console.log(data);
+      })
+      .catch(console.error);
+  });
 
   return (
     <CurrentTemperatureUnitContext.Provider

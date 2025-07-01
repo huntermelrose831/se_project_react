@@ -26,7 +26,8 @@ export const weatherOptions = [
   },
   {
     day: true,
-    condition: "haze" || "fog",
+    condition: "fog",
+
     url: new URL("../assets/dayfog.png", import.meta.url),
   },
   {
