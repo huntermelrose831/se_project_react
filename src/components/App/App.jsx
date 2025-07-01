@@ -70,7 +70,7 @@ function App() {
             ></Route>
             <Route
               path="/se_project_react/profile"
-              element={<Profile />}
+              element={<Profile onCardClick={handleCardClick} />}
             ></Route>
           </Routes>
 
