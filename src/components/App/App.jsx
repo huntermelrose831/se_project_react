@@ -1,20 +1,22 @@
 import { useEffect, useState } from "react";
-import Header from "../Header/Header.jsx";
 import { v4 } from "uuid";
 import { Routes, Route } from "react-router-dom";
-import { coordinates, APIkey } from "../../utils/constants.js";
-import Main from "../Main/Main.jsx";
-import "./App.css";
-import ItemModal from "../ItemModal/ItemModal.jsx";
-import Footer from "../Footer/Footer.jsx";
-import CurrentTemperatureUnitContext from "../../context/CurrentTemperatureUnit.jsx";
-import { getWeather, filterWeatherData } from "../../utils/WeatherAPI.js";
-import AddItemModal from "../AddItemModal/AddItemModal.jsx";
-import { defaultClothingItems } from "../../utils/constants.js";
+
 import Profile from "../Profile/Profile.jsx";
-import { GetItems, PostItems, DeleteItems } from "../../utils/api.js";
+import Main from "../Main/Main.jsx";
+import Header from "../Header/Header.jsx";
+import ItemModal from "../ItemModal/ItemModal.jsx";
+import AddItemModal from "../AddItemModal/AddItemModal.jsx";
+import Footer from "../Footer/Footer.jsx";
+import "./App.css";
+
+import { coordinates, APIkey } from "../../utils/constants.js";
+import CurrentTemperatureUnitContext from "../../context/CurrentTemperatureUnit.js";
+import { getWeather, filterWeatherData } from "../../utils/WeatherAPI.js";
+import { getItems, postItems, deleteItems } from "../../utils/api.js";
+
 function App() {
-  const [clothingItems, setClothingItems] = useState(defaultClothingItems);
+  const [clothingItems, setClothingItems] = useState([]);
   const [weatherData, setWeatherData] = useState({});
   const [activeModal, setActiveModal] = useState("");
   const [selectedCard, setSelectedCard] = useState({});
@@ -35,16 +37,19 @@ function App() {
     setActiveModal("");
   };
   const handleAddItemModalSubmit = ({ name, imageUrl, weather }) => {
-    setClothingItems([
-      { name, link: imageUrl, weather, _id: v4() },
-      ...clothingItems,
-    ]);
-    PostItems({ name, imageUrl, weather });
+    postItems({ name, imageUrl, weather })
+      .then(() => {
+        setClothingItems([
+          { name, imageUrl, weather, _id: v4() },
+          ...clothingItems,
+        ]);
 
-    closeActiveModal();
+        closeActiveModal();
+      })
+      .catch(console.error);
   };
   const handleDeleteItem = (id) => {
-    DeleteItems(id)
+    deleteItems(id)
       .then(() => {
         setClothingItems((prevItems) =>
           prevItems.filter((item) => item._id !== id)
@@ -62,7 +67,7 @@ function App() {
       .catch(console.error);
   }, []);
   useEffect(() => {
-    GetItems()
+    getItems()
       .then((items) => {
         setClothingItems(items);
       })

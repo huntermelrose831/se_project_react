@@ -9,37 +9,31 @@ function Header({ handleAddClick, weatherData }) {
     day: "numeric",
   });
   return (
-    <>
-      <header className="header">
-        <Link to="/" className="header__logo-link">
-          <img className="header__logo" src={logo} />
+    <header className="header">
+      <Link to="/" className="header__logo-link">
+        <img alt="Logo" className="header__logo" src={logo} />
+      </Link>
+      <p className="header__date-location">
+        {currentDate}, {weatherData.city}
+      </p>
+
+      <ToggleSwitch />
+
+      <button
+        type="button"
+        onClick={handleAddClick}
+        className="header__add-clothes-btn"
+      >
+        + Add clothes
+      </button>
+
+      <div className="header__user-container">
+        <p className="header__username">Terrence Tegegne</p>
+        <Link to="/profile" className="header__profile-link">
+          <img src={avatar} alt="Terrance Tegegne" className="header__avatar" />
         </Link>
-        <p className="header__date-location">
-          {currentDate}, {weatherData.city}
-        </p>
-
-        <ToggleSwitch />
-
-        <button
-          type="button"
-          onClick={handleAddClick}
-          className="header__add-clothes-btn"
-        >
-          + Add clothes
-        </button>
-
-        <div className="header__user-container">
-          <p className="header__username">Terrence Tegegne</p>
-          <Link to="/profile" className="header__profile-link">
-            <img
-              src={avatar}
-              alt="Terrance Tegegne"
-              className="header__avatar"
-            />
-          </Link>
-        </div>
-      </header>
-    </>
+      </div>
+    </header>
   );
 }
 export default Header;

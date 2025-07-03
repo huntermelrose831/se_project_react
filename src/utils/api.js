@@ -1,29 +1,28 @@
 const baseUrl = "http://localhost:3001";
 
-function GetItems() {
-  return fetch(`${baseUrl}/items`).then((res) => {
-    return res.ok ? res.json() : Promise.reject(`Error: ${res.status}`);
-  });
+function checkResponse(res) {
+  return res.ok ? res.json() : Promise.reject(`Error: ${res.status}`);
 }
-async function PostItems({ name, link: imageUrl, weather }) {
+
+function getItems() {
+  return fetch(`${baseUrl}/items`).then(checkResponse);
+}
+
+async function postItems({ name, imageUrl, weather }) {
   return fetch(`${baseUrl}/items`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ name, link: imageUrl, weather }),
-  }).then((res) => {
-    return res.ok ? res.json() : Promise.reject(`Error: ${res.status}`);
-  });
+    body: JSON.stringify({ name, imageUrl, weather }),
+  }).then(checkResponse);
 }
-async function DeleteItems(id) {
+async function deleteItems(id) {
   return fetch(`${baseUrl}/items/${id}`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
     },
-  }).then((res) => {
-    return res.ok ? res.json() : Promise.reject(`Error: ${res.status}`);
-  });
+  }).then(checkResponse);
 }
-export { GetItems, PostItems, DeleteItems };
+export { getItems, postItems, deleteItems };

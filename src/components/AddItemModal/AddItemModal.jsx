@@ -50,6 +50,7 @@ export default function AddItemModal({
           Image{" "}
           <input
             type="url"
+            required
             className="modal__input"
             id="imageUrl"
             placeholder="Image URL"

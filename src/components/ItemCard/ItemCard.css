@@ -1,11 +1,9 @@
 .card {
+  justify-content: center;
+  align-items: center;
   width: 323px;
   position: relative;
   display: flex;
-  justify-content: center;
-   {
-    /*add fonts and more styles*/
-  }
 }
 .card__title {
   position: absolute;
@@ -19,13 +17,19 @@
   justify-content: center;
   color: #000000;
   opacity: 0.6;
+
   font-weight: 700;
   font-size: 16px;
+  text-overflow: ellipsis;
   line-height: 20px;
   border-radius: 4px;
 }
 .card__image {
   border-radius: 20px;
   width: 100%;
+  max-width: 325px;
+  min-height: 325px;
+  min-width: 325px;
+  max-height: 325px;
   border: 1px solid rgba(0, 0, 0, 0.3);
 }

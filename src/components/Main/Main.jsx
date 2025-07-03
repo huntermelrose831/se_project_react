@@ -3,7 +3,7 @@ import { filterTemp } from "../../utils/WeatherAPI.js";
 import ItemCard from "../ItemCard/ItemCard.jsx";
 import "./Main.css";
 import { useContext } from "react";
-import CurrentTemperatureUnitContext from "../../context/CurrentTemperatureUnit.jsx";
+import CurrentTemperatureUnitContext from "../../context/CurrentTemperatureUnit.js";
 function Main({ weatherData, handleCardClick, clothingItems }) {
   const { handleToggleSwitchChange, currentTemperatureUnit } = useContext(
     CurrentTemperatureUnitContext
@@ -25,7 +25,12 @@ function Main({ weatherData, handleCardClick, clothingItems }) {
         <ul className="cards__list">
           {clothingItems
             .filter((item) => {
-              return item.weather === filterTemp(weatherData.temp);
+              if (weatherData.temp) {
+                return item.weather === filterTemp(weatherData.temp.F);
+              } else {
+                console.error("Weather data is not available");
+                return false;
+              }
             })
             .map((item) => {
               return (
