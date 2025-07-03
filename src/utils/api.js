@@ -8,7 +8,7 @@ function getItems() {
   return fetch(`${baseUrl}/items`).then(checkResponse);
 }
 
-async function postItems({ name, imageUrl, weather }) {
+function postItems({ name, imageUrl, weather }) {
   return fetch(`${baseUrl}/items`, {
     method: "POST",
     headers: {
@@ -17,7 +17,7 @@ async function postItems({ name, imageUrl, weather }) {
     body: JSON.stringify({ name, imageUrl, weather }),
   }).then(checkResponse);
 }
-async function deleteItems(id) {
+function deleteItems(id) {
   return fetch(`${baseUrl}/items/${id}`, {
     method: "DELETE",
     headers: {

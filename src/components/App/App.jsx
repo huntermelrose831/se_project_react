@@ -38,12 +38,8 @@ function App() {
   };
   const handleAddItemModalSubmit = ({ name, imageUrl, weather }) => {
     postItems({ name, imageUrl, weather })
-      .then(() => {
-        setClothingItems([
-          { name, imageUrl, weather, _id: v4() },
-          ...clothingItems,
-        ]);
-
+      .then((newItem) => {
+        setClothingItems([newItem, ...clothingItems]);
         closeActiveModal();
       })
       .catch(console.error);
