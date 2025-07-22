@@ -2,7 +2,7 @@
 
 A React application that solves the daily dilemma of choosing appropriate clothing by analyzing real-time weather data and recommending suitable items from your personal wardrobe.
 
-![WTWR App Preview](src/images/wtwrsnip.png)
+![WTWR App Preview](src/assets/wtwrsnip.png)
 
 ## 🌐 Live Demo
 [View Live Application](https://huntermelrose831.github.io/se_project_react/) | [Watch Demo Video](link-to-demo-video)
