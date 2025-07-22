@@ -58,30 +58,7 @@ src/
 └── assets/             # Images and static resources
 ```
 
-## 🚀 Getting Started
 
-### Prerequisites
-- Node.js (v14 or higher)
-- npm or yarn package manager
-
-### Installation
-
-```bash
-# Clone the repository
-git clone https://github.com/huntermelrose831/se_project_react.git
-
-# Navigate to project directory
-cd se_project_react
-
-# Install dependencies
-npm install
-
-# Start development server
-npm run dev
-
-# Build for production
-npm run build
-```
 
 ## 🔧 Development Challenges & Solutions
 
@@ -155,14 +132,7 @@ This project represents my transition into modern React development, demonstrati
 - **Growth Mindset**: Continuous learning and improvement
 - **Professional Development**: Writing maintainable, scalable code
 
-## 🤝 Let's Connect
 
-I'm passionate about creating user-centered applications that solve real problems. Always excited to discuss React development, weather APIs, or frontend architecture!
-
-- **GitHub**: [@huntermelrose831](https://github.com/huntermelrose831)
-- **LinkedIn**: [Your LinkedIn Profile]
-- **Email**: [your.email@example.com]
-- **Portfolio**: [Your Portfolio Website]
 
 ## 📄 License
 
