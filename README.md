@@ -5,7 +5,7 @@ A React application that solves the daily dilemma of choosing appropriate clothi
 ![WTWR App Preview](src/assets/wtwrsnip.PNG)
 
 ## 🌐 Live Demo
-[View Live Application](https://huntermelrose831.github.io/se_project_react/) | [Watch Demo Video](link-to-demo-video)
+[View Live Application](https://huntermelrose.dev/wtwr)
 
 ## 🎯 Project Vision
 
