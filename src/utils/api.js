@@ -11,20 +11,23 @@ function getItems() {
   return fetch(`${baseUrl}/items`).then(checkResponse);
 }
 
-function postItems({ name, imageUrl, weather }) {
+function postItems({ name, imageUrl, weather }, token) {
   return fetch(`${baseUrl}/items`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      authorization: `Bearer ${token}`,
     },
     body: JSON.stringify({ name, imageUrl, weather }),
   }).then(checkResponse);
 }
-function deleteItems(id) {
+function deleteItems(id, token) {
+  console.log("deleteItems called with token:", token); // Debug line
   return fetch(`${baseUrl}/items/${id}`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
+      authorization: `Bearer ${token}`,
     },
   }).then(checkResponse);
 }

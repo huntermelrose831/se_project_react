@@ -7,6 +7,7 @@ import Main from "../Main/Main.jsx";
 import Header from "../Header/Header.jsx";
 import ItemModal from "../ItemModal/ItemModal.jsx";
 import AddItemModal from "../AddItemModal/AddItemModal.jsx";
+import LoginModal from "../LoginModal/LoginModal.jsx";
 import Footer from "../Footer/Footer.jsx";
 import "./App.css";
 
@@ -14,12 +15,15 @@ import { coordinates, APIkey } from "../../utils/constants.js";
 import CurrentTemperatureUnitContext from "../../context/CurrentTemperatureUnit.js";
 import { getWeather, filterWeatherData } from "../../utils/WeatherAPI.js";
 import { getItems, postItems, deleteItems } from "../../utils/api.js";
+import { signin, checkToken } from "../../utils/auth.js";
 
 function App() {
   const [clothingItems, setClothingItems] = useState([]);
   const [weatherData, setWeatherData] = useState({});
   const [activeModal, setActiveModal] = useState("");
   const [selectedCard, setSelectedCard] = useState({});
+  const [currentUser, setCurrentUser] = useState({});
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
   const handleToggleSwitchChange = () => {
@@ -33,11 +37,29 @@ function App() {
   const handleAddClick = () => {
     setActiveModal("add-garment");
   };
+
+  const handleLoginClick = () => {
+    setActiveModal("login");
+  };
+
   const closeActiveModal = () => {
     setActiveModal("");
   };
+
+  const handleLogin = ({ email, password }) => {
+    signin({ email, password })
+      .then((data) => {
+        localStorage.setItem("jwt", data.token);
+        setCurrentUser(data.user);
+        setIsLoggedIn(true);
+        closeActiveModal();
+      })
+      .catch(console.error);
+  };
+
   const handleAddItemModalSubmit = ({ name, imageUrl, weather }) => {
-    postItems({ name, imageUrl, weather })
+    const token = localStorage.getItem("jwt");
+    postItems({ name, imageUrl, weather }, token)
       .then((newItem) => {
         setClothingItems([newItem, ...clothingItems]);
         closeActiveModal();
@@ -45,7 +67,16 @@ function App() {
       .catch(console.error);
   };
   const handleDeleteItem = (id) => {
-    deleteItems(id)
+    const token = localStorage.getItem("jwt");
+    console.log("Token retrieved:", token); // Debug line
+    console.log("Deleting item with ID:", id); // Debug line
+
+    if (!token) {
+      console.error("No token found in localStorage");
+      return;
+    }
+
+    deleteItems(id, token)
       .then(() => {
         setClothingItems((prevItems) =>
           prevItems.filter((item) => item._id !== id)
@@ -70,13 +101,33 @@ function App() {
       .catch(console.error);
   }, []);
 
+  useEffect(() => {
+    const token = localStorage.getItem("jwt");
+    if (token) {
+      checkToken(token)
+        .then((user) => {
+          setCurrentUser(user);
+          setIsLoggedIn(true);
+        })
+        .catch(() => {
+          localStorage.removeItem("jwt");
+        });
+    }
+  }, []);
+
   return (
     <CurrentTemperatureUnitContext.Provider
       value={{ currentTemperatureUnit, handleToggleSwitchChange }}
     >
       <div className="page">
         <div className="page__content">
-          <Header handleAddClick={handleAddClick} weatherData={weatherData} />
+          <Header
+            handleAddClick={handleAddClick}
+            weatherData={weatherData}
+            handleLoginClick={handleLoginClick}
+            isLoggedIn={isLoggedIn}
+            currentUser={currentUser}
+          />
 
           <Routes>
             <Route
@@ -107,6 +158,11 @@ function App() {
           isOpen={activeModal === "add-garment"}
           onClose={closeActiveModal}
           onAddItemModalSubmit={handleAddItemModalSubmit}
+        />
+        <LoginModal
+          isOpen={activeModal === "login"}
+          onClose={closeActiveModal}
+          onLogin={handleLogin}
         />
         <ItemModal
           activeModal={activeModal}

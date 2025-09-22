@@ -1,0 +1,13 @@
+/* Add your LoginModal styles here */
+.modal__label {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.modal__input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-top: 5px;
+}
