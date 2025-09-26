@@ -8,6 +8,7 @@ import Header from "../Header/Header.jsx";
 import ItemModal from "../ItemModal/ItemModal.jsx";
 import AddItemModal from "../AddItemModal/AddItemModal.jsx";
 import LoginModal from "../LoginModal/LoginModal.jsx";
+import RegisterModal from "../RegisterModal/RegisterModal.jsx";
 import Footer from "../Footer/Footer.jsx";
 import "./App.css";
 
@@ -15,7 +16,7 @@ import { coordinates, APIkey } from "../../utils/constants.js";
 import CurrentTemperatureUnitContext from "../../context/CurrentTemperatureUnit.js";
 import { getWeather, filterWeatherData } from "../../utils/WeatherAPI.js";
 import { getItems, postItems, deleteItems } from "../../utils/api.js";
-import { signin, checkToken } from "../../utils/auth.js";
+import { signin, signup, checkToken } from "../../utils/auth.js";
 
 function App() {
   const [clothingItems, setClothingItems] = useState([]);
@@ -42,6 +43,10 @@ function App() {
     setActiveModal("login");
   };
 
+  const handleSignUpClick = () => {
+    setActiveModal("register");
+  };
+
   const closeActiveModal = () => {
     setActiveModal("");
   };
@@ -53,6 +58,14 @@ function App() {
         setCurrentUser(data.user);
         setIsLoggedIn(true);
         closeActiveModal();
+      })
+      .catch(console.error);
+  };
+
+  const handleRegister = ({ name, avatar, email, password }) => {
+    signup({ name, avatar, email, password })
+      .then(() => {
+        handleLogin({ email, password }); // Auto-login after successful registration
       })
       .catch(console.error);
   };
@@ -125,6 +138,7 @@ function App() {
             handleAddClick={handleAddClick}
             weatherData={weatherData}
             handleLoginClick={handleLoginClick}
+            handleSignUpClick={handleSignUpClick}
             isLoggedIn={isLoggedIn}
             currentUser={currentUser}
           />
@@ -147,6 +161,7 @@ function App() {
                   clothingItems={clothingItems}
                   onCardClick={handleCardClick}
                   handleAddClick={handleAddClick}
+                  currentUser={currentUser}
                 />
               }
             ></Route>
@@ -164,11 +179,17 @@ function App() {
           onClose={closeActiveModal}
           onLogin={handleLogin}
         />
+        <RegisterModal
+          isOpen={activeModal === "register"}
+          onClose={closeActiveModal}
+          onRegister={handleRegister}
+        />
         <ItemModal
           activeModal={activeModal}
           card={selectedCard}
           onClose={closeActiveModal}
           handleDeleteItem={handleDeleteItem}
+          currentUser={currentUser}
         />
       </div>
     </CurrentTemperatureUnitContext.Provider>

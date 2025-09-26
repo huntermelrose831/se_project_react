@@ -41,7 +41,7 @@ export default function AddItemModal({
             className="modal__input"
             id="name"
             placeholder="Name"
-            requiredi
+            required
             onChange={handleNameChange}
             value={name}
           />

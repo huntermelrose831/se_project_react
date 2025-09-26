@@ -3,10 +3,12 @@ import logo from "../../assets/wtwrlogo.svg";
 import avatar from "../../assets/avatar.png";
 import { Link } from "react-router-dom";
 import ToggleSwitch from "../ToggleSwitch/ToggleSwitch.jsx";
+
 function Header({
   handleAddClick,
   weatherData,
   handleLoginClick,
+  handleSignUpClick,
   isLoggedIn,
   currentUser,
 }) {
@@ -14,11 +16,13 @@ function Header({
     month: "long",
     day: "numeric",
   });
+
   return (
     <header className="header">
       <Link to="/" className="header__logo-link">
         <img alt="Logo" className="header__logo" src={logo} />
       </Link>
+
       <p className="header__date-location">
         {currentDate}, {weatherData.city}
       </p>
@@ -47,15 +51,25 @@ function Header({
           </div>
         </>
       ) : (
-        <button
-          type="button"
-          onClick={handleLoginClick}
-          className="header__login-btn"
-        >
-          Log In
-        </button>
+        <div className="header__auth-buttons">
+          <button
+            type="button"
+            onClick={handleSignUpClick}
+            className="header__signup-btn"
+          >
+            Sign Up
+          </button>
+          <button
+            type="button"
+            onClick={handleLoginClick}
+            className="header__login-btn"
+          >
+            Log In
+          </button>
+        </div>
       )}
     </header>
   );
 }
+
 export default Header;

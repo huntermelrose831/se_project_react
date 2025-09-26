@@ -1,13 +1,56 @@
-/* Add your LoginModal styles here */
+/* LoginModal styles - inherits from ModalWithForm */
 .modal__label {
   display: flex;
   flex-direction: column;
-  margin-bottom: 20px;
+  margin-bottom: 24px;
+  font-family: "Cabinet Grotesk-Regular", sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 20px;
+  color: rgba(0, 0, 0, 0.5);
 }
 
 .modal__input {
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  margin-top: 5px;
+  padding: 16px 12px;
+  border: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+  border-radius: 0;
+  margin-top: 8px;
+  font-family: "Cabinet Grotesk-Regular", sans-serif;
+  font-size: 16px;
+  line-height: 20px;
+  background: transparent;
+  outline: none;
+}
+
+.modal__input::placeholder {
+  color: rgba(0, 0, 0, 0.3);
+}
+
+.modal__input:focus {
+  border-bottom-color: #000;
+}
+
+.modal__alternative {
+  margin-top: 20px;
+  text-align: center;
+  font-family: "Cabinet Grotesk-Regular", sans-serif;
+  font-size: 14px;
+  line-height: 17px;
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.modal__link {
+  background: none;
+  border: none;
+  color: rgba(0, 0, 0, 0.5);
+  text-decoration: underline;
+  cursor: pointer;
+  font-family: "Cabinet Grotesk-Regular", sans-serif;
+  font-size: 14px;
+  line-height: 17px;
+}
+
+.modal__link:hover {
+  color: #000;
 }

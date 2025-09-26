@@ -8,39 +8,38 @@ function Main({ weatherData, handleCardClick, clothingItems }) {
   const { handleToggleSwitchChange, currentTemperatureUnit } = useContext(
     CurrentTemperatureUnitContext
   );
+
+  // Check if weather data is loaded
+  const isWeatherDataLoaded =
+    weatherData && weatherData.temp && typeof weatherData.temp === "object";
+
   return (
     <main>
       <WeatherCard weatherData={weatherData} />
       <section className="cards">
-        <p onChange={handleToggleSwitchChange} className="cards__text">
+        <p className="cards__text">
           Today is{" "}
-          {weatherData.temp &&
-          typeof weatherData.temp === "object" &&
-          (typeof weatherData.temp[currentTemperatureUnit] === "number" ||
-            typeof weatherData.temp[currentTemperatureUnit] === "string")
+          {isWeatherDataLoaded && weatherData.temp[currentTemperatureUnit]
             ? `${weatherData.temp[currentTemperatureUnit]}° ${currentTemperatureUnit}`
-            : ""}
-          &deg; / You may want to wear:
+            : "Loading..."}{" "}
+          / You may want to wear:
         </p>
         <ul className="cards__list">
-          {clothingItems
-            .filter((item) => {
-              if (weatherData.temp) {
-                return item.weather === filterTemp(weatherData.temp.F);
-              } else {
-                console.error("Weather data is not available");
-                return false;
-              }
-            })
-            .map((item) => {
-              return (
-                <ItemCard
-                  key={item._id}
-                  item={item}
-                  onCardClick={handleCardClick}
-                />
-              );
-            })}
+          {isWeatherDataLoaded
+            ? clothingItems
+                .filter((item) => {
+                  return item.weather === filterTemp(weatherData.temp.F);
+                })
+                .map((item) => {
+                  return (
+                    <ItemCard
+                      key={item._id}
+                      item={item}
+                      onCardClick={handleCardClick}
+                    />
+                  );
+                })
+            : []}
         </ul>
       </section>
     </main>
