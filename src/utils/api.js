@@ -21,6 +21,34 @@ function postItems({ name, imageUrl, weather }, token) {
     body: JSON.stringify({ name, imageUrl, weather }),
   }).then(checkResponse);
 }
+function updateProfile(name, avatar, token) {
+  return fetch(`${baseUrl}/users/me`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+      authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({ name, avatar }),
+  }).then((res) => res.json());
+}
+function addCardLike(id, token) {
+  return fetch(`${baseUrl}/items/${id}/likes`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      authorization: `Bearer ${token}`,
+    },
+  }).then(res => res.json());
+};
+function removeCardLike(id, token) {
+  return fetch(`${baseUrl}/items/${id}/likes`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      authorization: `Bearer ${token}`,
+    },
+  }).then(res => res.json());
+};
 function deleteItems(id, token) {
   console.log("deleteItems called with token:", token); // Debug line
   return fetch(`${baseUrl}/items/${id}`, {
@@ -31,4 +59,4 @@ function deleteItems(id, token) {
     },
   }).then(checkResponse);
 }
-export { getItems, postItems, deleteItems };
+export { getItems, postItems, deleteItems, updateProfile, addCardLike, removeCardLike };

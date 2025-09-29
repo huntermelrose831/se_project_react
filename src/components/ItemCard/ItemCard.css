@@ -8,6 +8,7 @@
 .card__title {
   position: absolute;
   top: 15px;
+
   margin: 0;
   width: 73px;
   height: 24px;
@@ -20,7 +21,7 @@
 
   font-weight: 700;
   font-size: 16px;
-  
+
   line-height: 20px;
   border-radius: 4px;
 }
@@ -32,4 +33,25 @@
   min-width: 325px;
   max-height: 325px;
   border: 1px solid rgba(0, 0, 0, 0.3);
+}
+.card__like-button {
+  position: absolute;
+  width: 18px;
+  top: 20px;
+  right: 96px;
+  margin: 0 0 0 10px;
+  height: 15px;
+  background: url("../../assets/likebuttonclear.svg") no-repeat center center;
+  background-size: contain;
+  border: none;
+  cursor: pointer;
+  opacity: 0.6;
+}
+.card__like-button:hover {
+  opacity: 1;
+}
+.card__like-button_active {
+  background: url("../../assets/likebuttonliked.svg") no-repeat center center;
+  background-size: contain;
+  opacity: 1;
 }

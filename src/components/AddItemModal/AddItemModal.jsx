@@ -34,12 +34,12 @@ export default function AddItemModal({
         onClose={onClose}
         onSubmit={handleSubmit}
       >
-        <label htmlFor="name" className="modal__label">
+        <label htmlFor="item-name" className="modal__label">
           Name{" "}
           <input
             type="text"
             className="modal__input"
-            id="name"
+            id="item-name"
             placeholder="Name"
             required
             onChange={handleNameChange}
