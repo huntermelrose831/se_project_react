@@ -188,21 +188,30 @@ function App() {
                     onCardLike={handleCardLike}
                   />
                 }
-              ></Route>
+              />
               <Route
                 path="/profile"
                 element={
-                  <Profile
-                    clothingItems={clothingItems}
-                    onCardClick={handleCardClick}
-                    handleAddClick={handleAddClick}
-                    currentUser={currentUser}
-                    onEditProfile={handleEditProfileClick}
-                    onLogout={handleLogout}
-                    onCardLike={handleCardLike}
-                  />
+                  isLoggedIn ? (
+                    <Profile
+                      clothingItems={clothingItems}
+                      onCardClick={handleCardClick}
+                      handleAddClick={handleAddClick}
+                      currentUser={currentUser}
+                      onEditProfile={handleEditProfileClick}
+                      onLogout={handleLogout}
+                      onCardLike={handleCardLike}
+                    />
+                  ) : (
+                    <Main
+                      weatherData={weatherData}
+                      handleCardClick={handleCardClick}
+                      clothingItems={clothingItems}
+                      onCardLike={handleCardLike}
+                    />
+                  )
                 }
-              ></Route>
+              />
             </Routes>
 
             <Footer />
