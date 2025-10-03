@@ -66,4 +66,4 @@ export const coordinates = {
   latitude: 37.7749, // Default to San Francisco
   longitude: -122.4194, // Default to San Francisco
 };
-export const APIkey = "bd5d44e629e0bcd51009c45d09d0af0f";
+export const apiKey = "bd5d44e629e0bcd51009c45d09d0af0f";

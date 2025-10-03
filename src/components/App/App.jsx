@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { v4 } from "uuid";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 
 import Profile from "../Profile/Profile.jsx";
 import Main from "../Main/Main.jsx";
@@ -30,6 +30,7 @@ function App() {
   const [selectedCard, setSelectedCard] = useState({});
   const [currentUser, setCurrentUser] = useState({});
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [token, setToken] = useState(localStorage.getItem("jwt")); // Add token state
 
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
   const handleToggleSwitchChange = () => {
@@ -62,6 +63,7 @@ function App() {
     signin({ email, password })
       .then((data) => {
         localStorage.setItem("jwt", data.token);
+        setToken(data.token); // Update token state
         setCurrentUser(data.user);
         setIsLoggedIn(true);
         closeActiveModal();
@@ -70,6 +72,7 @@ function App() {
   };
   const handleLogout = () => {
     localStorage.removeItem("jwt");
+    setToken(null); // Clear token state
     setIsLoggedIn(false);
     setCurrentUser({});
     // Optionally, close modals or redirect to home
@@ -77,7 +80,15 @@ function App() {
   const handleRegister = ({ name, avatar, email, password }) => {
     signup({ name, avatar, email, password })
       .then(() => {
-        handleLogin({ email, password }); // Auto-login after successful registration
+        // After successful signup, make a proper login request
+        return signin({ email, password });
+      })
+      .then((data) => {
+        localStorage.setItem("jwt", data.token);
+        setToken(data.token); // Update token state
+        setCurrentUser(data.user);
+        setIsLoggedIn(true);
+        closeActiveModal();
       })
       .catch(console.error);
   };
@@ -147,8 +158,8 @@ function App() {
       .catch(console.error);
   }, []);
 
+  // Updated useEffect with token dependency
   useEffect(() => {
-    const token = localStorage.getItem("jwt");
     if (token) {
       checkToken(token)
         .then((user) => {
@@ -157,9 +168,12 @@ function App() {
         })
         .catch(() => {
           localStorage.removeItem("jwt");
+          setToken(null);
+          setIsLoggedIn(false);
+          setCurrentUser({});
         });
     }
-  }, []);
+  }, [token]); // Now it runs whenever token changes
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -203,12 +217,7 @@ function App() {
                       onCardLike={handleCardLike}
                     />
                   ) : (
-                    <Main
-                      weatherData={weatherData}
-                      handleCardClick={handleCardClick}
-                      clothingItems={clothingItems}
-                      onCardLike={handleCardLike}
-                    />
+                    <Navigate to="/" replace />
                   )
                 }
               />

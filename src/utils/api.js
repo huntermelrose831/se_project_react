@@ -29,7 +29,7 @@ function updateProfile(name, avatar, token) {
       authorization: `Bearer ${token}`,
     },
     body: JSON.stringify({ name, avatar }),
-  }).then((res) => res.json());
+  }).then(checkResponse);
 }
 function addCardLike(id, token) {
   return fetch(`${baseUrl}/items/${id}/likes`, {
@@ -38,8 +38,8 @@ function addCardLike(id, token) {
       "Content-Type": "application/json",
       authorization: `Bearer ${token}`,
     },
-  }).then(res => res.json());
-};
+  }).then(checkResponse);
+}
 function removeCardLike(id, token) {
   return fetch(`${baseUrl}/items/${id}/likes`, {
     method: "DELETE",
@@ -47,8 +47,8 @@ function removeCardLike(id, token) {
       "Content-Type": "application/json",
       authorization: `Bearer ${token}`,
     },
-  }).then(res => res.json());
-};
+  }).then(checkResponse);
+}
 function deleteItems(id, token) {
   console.log("deleteItems called with token:", token); // Debug line
   return fetch(`${baseUrl}/items/${id}`, {
@@ -59,4 +59,11 @@ function deleteItems(id, token) {
     },
   }).then(checkResponse);
 }
-export { getItems, postItems, deleteItems, updateProfile, addCardLike, removeCardLike };
+export {
+  getItems,
+  postItems,
+  deleteItems,
+  updateProfile,
+  addCardLike,
+  removeCardLike,
+};
