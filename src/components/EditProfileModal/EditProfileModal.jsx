@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import ModalWithForm from "../ModalWithForm/ModalWithForm.jsx";
 import CurrentUserContext from "../../context/CurrentUserContext";
 import "./EditProfileModal.css";
-function EditProfileModal({ isOpen, onClose, onUpdateUser }) {
+function EditProfileModal({ isOpen, onClose, onUpdateUser, isLoading }) {
   const currentUser = useContext(CurrentUserContext);
 
   // Pre-fill form with current user data
@@ -28,6 +28,7 @@ function EditProfileModal({ isOpen, onClose, onUpdateUser }) {
       onClose={onClose}
       buttonText="Save"
       onSubmit={handleSubmit}
+      isLoading={isLoading}
     >
       <label className="modal__label">
         Name

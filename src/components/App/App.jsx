@@ -13,7 +13,7 @@ import EditProfileModal from "../EditProfileModal/EditProfileModal.jsx";
 import Footer from "../Footer/Footer.jsx";
 import "./App.css";
 
-import { coordinates, APIkey } from "../../utils/constants.js";
+import { coordinates, apiKey } from "../../utils/constants.js";
 import CurrentTemperatureUnitContext from "../../context/CurrentTemperatureUnit.js";
 import CurrentUserContext from "../../context/CurrentUserContext";
 
@@ -30,6 +30,7 @@ function App() {
   const [selectedCard, setSelectedCard] = useState({});
   const [currentUser, setCurrentUser] = useState({});
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [token, setToken] = useState(localStorage.getItem("jwt")); // Add token state
 
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
@@ -60,15 +61,30 @@ function App() {
     setActiveModal("edit-profile");
   };
   const handleLogin = ({ email, password }) => {
+    setIsLoading(true);
     signin({ email, password })
       .then((data) => {
         localStorage.setItem("jwt", data.token);
         setToken(data.token); // Update token state
-        setCurrentUser(data.user);
-        setIsLoggedIn(true);
+        if (data.token) {
+          checkToken(data.token)
+            .then((user) => {
+              setCurrentUser(user);
+              setIsLoggedIn(true);
+            })
+            .catch(() => {
+              localStorage.removeItem("jwt");
+              setToken(null);
+              setIsLoggedIn(false);
+              setCurrentUser({});
+            });
+        }
         closeActiveModal();
       })
-      .catch(console.error);
+      .catch(console.error)
+      .finally(() => {
+        setIsLoading(false);
+      });
   };
   const handleLogout = () => {
     localStorage.removeItem("jwt");
@@ -78,6 +94,7 @@ function App() {
     // Optionally, close modals or redirect to home
   };
   const handleRegister = ({ name, avatar, email, password }) => {
+    setIsLoading(true);
     signup({ name, avatar, email, password })
       .then(() => {
         // After successful signup, make a proper login request
@@ -90,28 +107,36 @@ function App() {
         setIsLoggedIn(true);
         closeActiveModal();
       })
-      .catch(console.error);
+      .catch(console.error)
+      .finally(() => {
+        setIsLoading(false);
+      });
   };
   const handleUpdateUser = ({ name, avatar }) => {
+    setIsLoading(true);
     const token = localStorage.getItem("jwt");
     updateProfile(name, avatar, token)
       .then((updatedUser) => {
         setCurrentUser(updatedUser);
-        setActiveModal(""); // Close modal
+        closeActiveModal(); // Close modal
       })
-      .catch((err) => {
-        // Show error to user
-        console.error("Profile update failed:", err);
+      .catch(console.error)
+      .finally(() => {
+        setIsLoading(false);
       });
   };
   const handleAddItemModalSubmit = ({ name, imageUrl, weather }) => {
+    setIsLoading(true);
     const token = localStorage.getItem("jwt");
     postItems({ name, imageUrl, weather }, token)
       .then((newItem) => {
         setClothingItems([newItem, ...clothingItems]);
         closeActiveModal();
       })
-      .catch(console.error);
+      .catch(console.error)
+      .finally(() => {
+        setIsLoading(false);
+      });
   };
   const handleCardLike = ({ id, isLiked }) => {
     const token = localStorage.getItem("jwt");
@@ -143,7 +168,7 @@ function App() {
       .catch(console.error);
   };
   useEffect(() => {
-    getWeather(coordinates, APIkey)
+    getWeather(coordinates, apiKey)
       .then((data) => {
         const filteredData = filterWeatherData(data);
         setWeatherData(filteredData);
@@ -157,7 +182,18 @@ function App() {
       })
       .catch(console.error);
   }, []);
-
+  useEffect(() => {
+    if (!activeModal) return;
+    const handleEscClose = (event) => {
+      if (event.key === "Escape") {
+        closeActiveModal();
+      }
+    };
+    document.addEventListener("keydown", handleEscClose);
+    return () => {
+      document.removeEventListener("keydown", handleEscClose);
+    };
+  }, [activeModal]);
   // Updated useEffect with token dependency
   useEffect(() => {
     if (token) {
@@ -229,16 +265,19 @@ function App() {
             isOpen={activeModal === "add-garment"}
             onClose={closeActiveModal}
             onAddItemModalSubmit={handleAddItemModalSubmit}
+            isLoading={isLoading}
           />
           <LoginModal
             isOpen={activeModal === "login"}
             onClose={closeActiveModal}
             onLogin={handleLogin}
+            isLoading={isLoading}
           />
           <RegisterModal
             isOpen={activeModal === "register"}
             onClose={closeActiveModal}
             onRegister={handleRegister}
+            isLoading={isLoading}
           />
           <ItemModal
             activeModal={activeModal}
@@ -246,8 +285,10 @@ function App() {
             onClose={closeActiveModal}
             handleDeleteItem={handleDeleteItem}
             currentUser={currentUser}
+            isLoading={isLoading}
           />
           <EditProfileModal
+            isLoading={isLoading}
             isOpen={activeModal === "edit-profile"}
             onClose={closeActiveModal}
             onUpdateUser={handleUpdateUser}

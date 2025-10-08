@@ -1,24 +1,37 @@
-import "./ItemCard.css";
 import { useContext } from "react";
 import CurrentUserContext from "../../context/CurrentUserContext";
+import "./ItemCard.css";
 
 function ItemCard({ item, onCardClick, onCardLike }) {
   const currentUser = useContext(CurrentUserContext);
-  const handleCardClick = () => {
-    onCardClick(item);
-  };
+
+  // Safe check for currentUser and currentUser._id
   const isLiked =
-    currentUser && currentUser._id
+    currentUser && currentUser._id && item.likes
       ? item.likes.some((id) => id === currentUser._id)
       : false;
-  const handleLike = () => {
-    console.log(onCardLike);
-    onCardLike({ id: item._id, isLiked });
+
+  const handleClick = () => {
+    onCardClick(item);
   };
+
+  const handleLike = () => {
+    if (typeof onCardLike === "function") {
+      onCardLike({ id: item._id, isLiked });
+    }
+  };
+
   return (
     <li className="card">
       <h2 className="card__title">{item.name}</h2>
-      {currentUser._id && (
+      <img
+        onClick={handleClick}
+        className="card__image"
+        src={item.imageUrl}
+        alt={item.name}
+      />
+      {/* Only show like button if user is logged in */}
+      {currentUser && currentUser._id && (
         <button
           className={`card__like-button${
             isLiked ? " card__like-button_active" : ""
@@ -27,14 +40,8 @@ function ItemCard({ item, onCardClick, onCardLike }) {
           aria-label={isLiked ? "Unlike" : "Like"}
         ></button>
       )}
-      <img
-        onClick={handleCardClick}
-        role="button"
-        className="card__image"
-        src={item.imageUrl}
-        alt={item.name}
-      />
     </li>
   );
 }
+
 export default ItemCard;
