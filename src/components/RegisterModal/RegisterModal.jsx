@@ -2,7 +2,12 @@ import "./RegisterModal.css";
 import ModalWithForm from "../ModalWithForm/ModalWithForm.jsx";
 import { useState } from "react";
 
-export default function RegisterModal({ onClose, isOpen, onRegister }) {
+export default function RegisterModal({
+  onClose,
+  isOpen,
+  onRegister,
+  onSwitchModal,
+}) {
   const [name, setName] = useState("");
   const [avatar, setAvatar] = useState("");
   const [email, setEmail] = useState("");
@@ -88,6 +93,9 @@ export default function RegisterModal({ onClose, isOpen, onRegister }) {
           value={avatar}
         />
       </label>
+      <button type="button" className="modal__switch" onClick={onSwitchModal}>
+        or Log In{" "}
+      </button>
     </ModalWithForm>
   );
 }

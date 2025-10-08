@@ -60,6 +60,7 @@ function App() {
   const handleEditProfileClick = () => {
     setActiveModal("edit-profile");
   };
+
   const handleLogin = ({ email, password }) => {
     setIsLoading(true);
     signin({ email, password })
@@ -150,8 +151,6 @@ function App() {
   };
   const handleDeleteItem = (id) => {
     const token = localStorage.getItem("jwt");
-    console.log("Token retrieved:", token); // Debug line
-    console.log("Deleting item with ID:", id); // Debug line
 
     if (!token) {
       console.error("No token found in localStorage");
@@ -167,6 +166,14 @@ function App() {
       })
       .catch(console.error);
   };
+  const handleSwitchModal = () => {
+    if (activeModal === "login") {
+      setActiveModal("register");
+    } else if (activeModal === "register") {
+      setActiveModal("login");
+    }
+  };
+
   useEffect(() => {
     getWeather(coordinates, apiKey)
       .then((data) => {
@@ -224,7 +231,6 @@ function App() {
               handleLoginClick={handleLoginClick}
               handleSignUpClick={handleSignUpClick}
               isLoggedIn={isLoggedIn}
-              currentUser={currentUser}
             />
 
             <Routes>
@@ -247,7 +253,6 @@ function App() {
                       clothingItems={clothingItems}
                       onCardClick={handleCardClick}
                       handleAddClick={handleAddClick}
-                      currentUser={currentUser}
                       onEditProfile={handleEditProfileClick}
                       onLogout={handleLogout}
                       onCardLike={handleCardLike}
@@ -272,19 +277,20 @@ function App() {
             onClose={closeActiveModal}
             onLogin={handleLogin}
             isLoading={isLoading}
+            onSwitchModal={handleSwitchModal} 
           />
           <RegisterModal
             isOpen={activeModal === "register"}
             onClose={closeActiveModal}
             onRegister={handleRegister}
             isLoading={isLoading}
+            onSwitchModal={handleSwitchModal}
           />
           <ItemModal
             activeModal={activeModal}
             card={selectedCard}
             onClose={closeActiveModal}
             handleDeleteItem={handleDeleteItem}
-            currentUser={currentUser}
             isLoading={isLoading}
           />
           <EditProfileModal

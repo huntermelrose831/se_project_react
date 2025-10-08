@@ -5,7 +5,7 @@ function Profile({
   onCardClick,
   clothingItems,
   handleAddClick,
-  currentUser,
+
   onEditProfile,
   onLogout,
   onCardLike,
@@ -14,11 +14,7 @@ function Profile({
     <>
       <div className="profile">
         <section className="profile__sidebar">
-          <SideBar
-            currentUser={currentUser}
-            onEditProfile={onEditProfile}
-            onLogout={onLogout}
-          />
+          <SideBar onEditProfile={onEditProfile} onLogout={onLogout} />
         </section>
         <section className="profile__clothing-items">
           <ClothesSection

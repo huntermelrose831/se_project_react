@@ -15,23 +15,21 @@ function WeatherCard({ weatherData }) {
   const weatherOptionCondition =
     filteredOptions[0]?.condition || "weather condition";
   return (
-    <>
-      <section className="weather-card">
-        <p className="weather-card__temp">
-          {weatherData.temp &&
-          typeof weatherData.temp === "object" &&
-          (typeof weatherData.temp[currentTemperatureUnit] === "number" ||
-            typeof weatherData.temp[currentTemperatureUnit] === "string")
-            ? `${weatherData.temp[currentTemperatureUnit]}° ${currentTemperatureUnit}`
-            : ""}
-        </p>
-        <img
-          src={weatherOptionUrl}
-          alt={weatherOptionCondition}
-          className="weather-card__image"
-        />
-      </section>
-    </>
+    <section className="weather-card">
+      <p className="weather-card__temp">
+        {weatherData.temp &&
+        typeof weatherData.temp === "object" &&
+        (typeof weatherData.temp[currentTemperatureUnit] === "number" ||
+          typeof weatherData.temp[currentTemperatureUnit] === "string")
+          ? `${weatherData.temp[currentTemperatureUnit]}° ${currentTemperatureUnit}`
+          : ""}
+      </p>
+      <img
+        src={weatherOptionUrl}
+        alt={weatherOptionCondition}
+        className="weather-card__image"
+      />
+    </section>
   );
 }
 export default WeatherCard;

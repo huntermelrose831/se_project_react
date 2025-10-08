@@ -1,6 +1,6 @@
 import "./SideBar.css";
 import avatar from "../../assets/avatar.png";
-function SideBar({ currentUser, onEditProfile, onLogout }) {
+function SideBar({ onEditProfile, onLogout }) {
   return (
     <section className="sidebar">
       <div className="sidebar__title">

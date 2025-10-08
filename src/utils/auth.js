@@ -1,11 +1,8 @@
+import { checkResponse } from "./api.js";
 const baseUrl =
   process.env.NODE_ENV === "production"
     ? "" // Use relative URLs in production
     : "http://localhost:3001";
-
-function checkResponse(res) {
-  return res.ok ? res.json() : Promise.reject(`Error: ${res.status}`);
-}
 
 export const signup = ({ name, avatar, email, password }) => {
   return fetch(`${baseUrl}/signup`, {
