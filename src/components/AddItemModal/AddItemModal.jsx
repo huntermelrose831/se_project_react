@@ -38,6 +38,7 @@ export default function AddItemModal({
           id="item-name"
           placeholder="Name"
           required
+          name="name"
           onChange={handleChange}
           value={values.name}
         />
@@ -47,6 +48,7 @@ export default function AddItemModal({
         <input
           type="url"
           required
+          name="imageUrl"
           className="modal__input"
           id="imageUrl"
           placeholder="Image URL"
