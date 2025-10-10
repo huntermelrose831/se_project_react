@@ -60,7 +60,12 @@ function App() {
   const handleEditProfileClick = () => {
     setActiveModal("edit-profile");
   };
-
+  const ProtectedRoute = ({ isLoggedIn, children }) => {
+    if (!isLoggedIn) {
+      return <Navigate to="/" replace />;
+    }
+    return children;
+  };
   const handleLogin = ({ email, password }) => {
     setIsLoading(true);
     signin({ email, password })
@@ -248,7 +253,7 @@ function App() {
               <Route
                 path="/profile"
                 element={
-                  isLoggedIn ? (
+                  <ProtectedRoute isLoggedIn={isLoggedIn}>
                     <Profile
                       clothingItems={clothingItems}
                       onCardClick={handleCardClick}
@@ -257,9 +262,7 @@ function App() {
                       onLogout={handleLogout}
                       onCardLike={handleCardLike}
                     />
-                  ) : (
-                    <Navigate to="/" replace />
-                  )
+                  </ProtectedRoute>
                 }
               />
             </Routes>
@@ -277,7 +280,7 @@ function App() {
             onClose={closeActiveModal}
             onLogin={handleLogin}
             isLoading={isLoading}
-            onSwitchModal={handleSwitchModal} 
+            onSwitchModal={handleSwitchModal}
           />
           <RegisterModal
             isOpen={activeModal === "register"}

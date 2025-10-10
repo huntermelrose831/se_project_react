@@ -1,6 +1,8 @@
 import "./AddItemModal.css";
 import ModalWithForm from "../ModalWithForm/ModalWithForm.jsx";
 import useForm from "../../hooks/useForm.js";
+import { useEffect } from "react";
+
 export default function AddItemModal({
   onClose,
   isOpen,
@@ -12,16 +14,16 @@ export default function AddItemModal({
     weather: "",
   };
   const { values, handleChange, setValues } = useForm(initialValues);
-
+  useEffect(() => {
+    if (isOpen) {
+      setValues(initialValues);
+    }
+  }, [isOpen]);
   const handleSubmit = (e) => {
-    useEffect(() => {
-      if (isOpen) {
-        e.preventDefault();
-        onAddItemModalSubmit(values);
-        setValues(initialValues);
-      }
-    }, [isOpen]);
+    e.preventDefault();
+    onAddItemModalSubmit(values);
   };
+
   return (
     <ModalWithForm
       title="New garment"
