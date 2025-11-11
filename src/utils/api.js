@@ -1,6 +1,6 @@
 const baseUrl =
   process.env.NODE_ENV === "production"
-    ? "" // Use relative URLs in production
+    ? "https://api.whattowearproject.jumpingcrab.com" // Use /wtwr prefix for production to match Nginx routing
     : "http://localhost:3001";
 
 function checkResponse(res) {

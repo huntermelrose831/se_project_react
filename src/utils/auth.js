@@ -1,7 +1,7 @@
 import { checkResponse } from "./api.js";
 const baseUrl =
   process.env.NODE_ENV === "production"
-    ? "" // Use relative URLs in production
+    ? "https://api.whattowearproject.jumpingcrab.com"
     : "http://localhost:3001";
 
 export const signup = ({ name, avatar, email, password }) => {
