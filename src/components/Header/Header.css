@@ -3,13 +3,12 @@
   align-items: center;
   height: 40px;
   padding: 32px 0 28px;
-  gap: 20px;
+  gap: 24px;
 }
 
 .header__logo {
   height: 40px;
   width: 89px;
-  margin-right: 24px;
 }
 
 .header__logo-link {
@@ -27,17 +26,16 @@
 }
 
 .header__add-clothes-btn {
-  margin: 0 0 0 20px;
   border: none;
-  position: relative;
-  left: 540px;
   background-color: transparent;
   cursor: pointer;
   font-size: 20px;
   line-height: 24px;
   font-weight: 700;
+  margin-left: auto;
   color: #000000;
   font-family: "Cabinet Grotesk-Regular", sans-serif;
+  flex-shrink: 0;
 }
 
 .header__add-clothes-btn:hover {
@@ -85,14 +83,16 @@
 
 .header__user-container {
   display: flex;
-  align-items: center;
-  margin-left: auto;
+  align-items: center; /* Aligns items vertically in the center of the header */
+  margin-left: auto; /* Pushes this section to the right side of the header */
+  gap: 12px; /* Space between username and avatar */
 }
 
 .header__avatar {
   height: 40px;
   width: 40px;
   border-radius: 50%;
+  flex-shrink: 0;
 }
 
 .header__username {
@@ -102,6 +102,10 @@
   font-weight: 700;
   color: #000000;
   font-family: "Cabinet Grotesk-Regular", sans-serif;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 200px;
 }
 
 .header__profile-link {
@@ -110,8 +114,8 @@
 
 /* Temperature toggle switch positioning */
 .header .toggle-switch {
-  margin: 0 20px;
   display: flex;
+ 
   align-items: center;
   flex-shrink: 0;
 }

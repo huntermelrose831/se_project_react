@@ -33,19 +33,17 @@ function Header({
         {currentDate}, {weatherData.city}
       </p>
 
-      <ToggleSwitch />
-
       {isLoggedIn ? (
         <>
-          <button
-            type="button"
-            onClick={handleAddClick}
-            className="header__add-clothes-btn"
-          >
-            + Add clothes
-          </button>
-
+          <ToggleSwitch />
           <div className="header__user-container">
+            <button
+              type="button"
+              onClick={handleAddClick}
+              className="header__add-clothes-btn"
+            >
+              + Add clothes
+            </button>
             <p className="header__username">{currentUser?.name || "User"}</p>
             <Link to="/profile" className="header__profile-link">
               {currentUser?.avatar ? (
@@ -63,22 +61,25 @@ function Header({
           </div>
         </>
       ) : (
-        <div className="header__auth-buttons">
-          <button
-            type="button"
-            onClick={handleSignUpClick}
-            className="header__signup-btn"
-          >
-            Sign Up
-          </button>
-          <button
-            type="button"
-            onClick={handleLoginClick}
-            className="header__login-btn"
-          >
-            Log In
-          </button>
-        </div>
+        <>
+          <div className="header__auth-buttons">
+            <button
+              type="button"
+              onClick={handleSignUpClick}
+              className="header__signup-btn"
+            >
+              Sign Up
+            </button>
+            <button
+              type="button"
+              onClick={handleLoginClick}
+              className="header__login-btn"
+            >
+              Log In
+            </button>
+          </div>
+          <ToggleSwitch />
+        </>
       )}
     </header>
   );
