@@ -6,7 +6,7 @@ A React application that solves the daily dilemma of choosing appropriate clothi
 
 ## 🌐 Live Demo
 
-[View Live Application](https://huntermelrose.dev/wtwr)
+[View Live Application](https://whattowearproject.jumpingcrab.com)
 
 ## 🎯 Project Vision
 
