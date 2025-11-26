@@ -35,8 +35,9 @@ function Header({
 
       {isLoggedIn ? (
         <>
-          <ToggleSwitch />
           <div className="header__user-container">
+            {" "}
+            <ToggleSwitch />
             <button
               type="button"
               onClick={handleAddClick}
@@ -62,6 +63,8 @@ function Header({
         </>
       ) : (
         <>
+          {" "}
+          <ToggleSwitch />
           <div className="header__auth-buttons">
             <button
               type="button"
@@ -78,7 +81,6 @@ function Header({
               Log In
             </button>
           </div>
-          <ToggleSwitch />
         </>
       )}
     </header>

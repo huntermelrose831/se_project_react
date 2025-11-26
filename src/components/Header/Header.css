@@ -115,7 +115,7 @@
 /* Temperature toggle switch positioning */
 .header .toggle-switch {
   display: flex;
- 
+
   align-items: center;
   flex-shrink: 0;
 }
